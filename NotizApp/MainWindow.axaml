@@ -2,8 +2,29 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        WindowState="Maximized"
         x:Class="NotizApp.MainWindow"
-        Title="NotizApp">
-    Welcome to Avalonia!
+        Title="NotizApp"
+        MinHeight="400" MinWidth="500"
+        SizeToContent="WidthAndHeight" >
+    
+    
+    <Grid>
+        <!-- schlichtes main menu -->
+        <Label Name="LabelName" Content="Willkommen in der NotizApp" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0" FontSize="60" FontStyle="Normal" FontWeight="Bold" IsVisible="False" Foreground="Orange"/>
+        <Button Name="StartButton" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,100" Content="Öffne das Notizbuch!" Click="StartButton_OnClick" IsVisible="True" Background="Gray" FontSize="20"/>
+        <Grid.Background>DarkRed</Grid.Background>
+        
+        <!-- auswahlsmenü -->
+        <Button Name="CreateNote" Content="neues Notiz erstellen" IsVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,100" Click="CreateNote_OnClick"/>
+        <Button Name="OpenNotes" Content="alle notizen sehen" IsVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+        <Button Name="CloseNotes" Content="Notizbuch schließen" Click="CloseNotes_OnClick" IsVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0"/>
+        
+        <Grid Name="CreateNoteGrid" IsVisible="False">
+            <TextBox Name="TitelBox" Watermark="hier kommt der Titel deiner Notiz..." HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,10,0,0" Width="300"/>
+            <TextBox Name="InhaltsBox" Watermark="So fängt deine Erinnrung an.."  HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,50,0,0" Width="600" Height="700" AcceptsReturn="True" TextWrapping="Wrap" />
+            <Button Name="SaveNoteButton" Content="Speicher diese Notiz!" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Margin="0,0,30,30"/>
+            <Button Name="BackButton" Content="Zurück" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="20" Margin="30,0,0,30" Click="BackButton_OnClick"/>
+        </Grid>
+    </Grid>
 </Window>
