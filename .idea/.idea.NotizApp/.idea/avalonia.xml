@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="NotizApp/AreYouSureWindow.axaml" value="NotizApp/NotizApp.csproj" />
+        <entry key="NotizApp/DialogJaNein.axaml" value="NotizApp/NotizApp.csproj" />
+        <entry key="NotizApp/MainWindow.axaml" value="NotizApp/NotizApp.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

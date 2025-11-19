@@ -58,6 +58,7 @@ public class ProfileService
 
         try
         {
+            Console.WriteLine($"{profileName}'s Profil wird geladen");
             // 2. Dateiinhalt lesen
             string json = await File.ReadAllTextAsync(filePath);
 
