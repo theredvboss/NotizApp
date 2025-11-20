@@ -17,29 +17,39 @@ public interface IDialogService
 
 public partial class MainWindow : Window
 {
+    #region Felder
     private readonly IDialogService _dialogService;
     private ProfileService _profileService;
     private Profile? _currentProfile;
-    
+    private List<Control> _screens;
+
+    #endregion
+
+    #region Kontruktor
     public MainWindow()
     {
         InitializeComponent();
         
         _profileService = new ProfileService();
-        //test
-        //Console.WriteLine(_profileService.GetProfileFilePath("Victor"));
-        this.Loaded += OnLoaded;
-        
         _dialogService = new DialogService();
+        
+        _screens = new List<Control>
+        {
+            ChooseProfileGrid,
+            ProfileCreationGrid,
+            MenuGrid,
+            CreateNoteGrid
+        };
+        
+        this.Loaded += OnLoaded;
         this.Closing += OnClosing;
     }
-    
+    #endregion
 
     private void CreateNote_OnClick(object? sender, RoutedEventArgs e)
     {
         ClearScreen();
         CreateNoteGrid.IsVisible = true;
-        
     }
 
     private void OpenNotes_OnClick(object? sender, RoutedEventArgs e)
@@ -56,25 +66,17 @@ public partial class MainWindow : Window
 
     private void ClearScreen()
     {
-        LabelName.IsVisible = false;
-        CreateNote.IsVisible = false;
-        OpenNotes.IsVisible = false;
-        SwitchUser.IsVisible = false;
-        CloseNotes.IsVisible = false;
-        CreateNoteGrid.IsVisible = false;
+        foreach (var screen in _screens)
+            screen.IsVisible = false;
+
+        LabelGrid.IsVisible = false;
         ChooseProfile.IsVisible = false;
-        CreateNewProfile.IsVisible = false;
-        ProfileListPanel.IsVisible = false;
-        ProfileCreationPanel.IsVisible = false;
     }
 
     private void BackToMenu()
     {
         ClearScreen();
-        CreateNote.IsVisible = true;
-        OpenNotes.IsVisible = true;
-        SwitchUser.IsVisible = true;
-        CloseNotes.IsVisible = true;
+        MenuGrid.IsVisible = true;
     }
     
     private async void OnClosing(object? sender, WindowClosingEventArgs e)
@@ -116,24 +118,20 @@ public partial class MainWindow : Window
     {
         ClearScreen();
 
-        CreateNewProfile.IsVisible = true;
-        ProfileListPanel.IsVisible = true;
+        ChooseProfileGrid.IsVisible = true;
+        LabelGrid.IsVisible = true;
 
         var profiles = _profileService.GetAllProfiles();
 
         if (profiles.Count == 0)
         {
-            Console.WriteLine("Kein Profil gefunden!");
             CreateNewProfile.Margin = new Thickness(0,0,0,0);
-            LabelName.IsVisible = true;
             LabelName.Content = "Bitte erstelle ein neues Profil.";
             return;
         }
 
         // Wenn es Profile gibt
-        Console.WriteLine("Es gibt vorhandene Profile");
         ProfileListPanel.Children.Clear();
-        LabelName.IsVisible = true;
         LabelName.Content = "Wähle ein Profil aus:";
 
         foreach (var profile in profiles)
@@ -145,7 +143,7 @@ public partial class MainWindow : Window
                 Height = 40,
                 FontSize = 20,
                 Margin = new Thickness(5),
-                Background = Brushes.LightGoldenrodYellow
+                Foreground = Brushes.Black
             };
 
             b.Click += async (s, e) =>
@@ -161,7 +159,7 @@ public partial class MainWindow : Window
     private void CreateNewProfile_OnClick(object? sender, RoutedEventArgs e)
     {
         ClearScreen();
-        ProfileCreationPanel.IsVisible = true;
+        ProfileCreationGrid.IsVisible = true;
     }
 
     private void SaveNewProfile_OnClick(object? sender, RoutedEventArgs e)
@@ -175,7 +173,7 @@ public partial class MainWindow : Window
     private async void AccessMenu()
     {
         ClearScreen();
-        LabelName.IsVisible = true;
+        LabelGrid.IsVisible = true;
         LabelName.Content = $"Willkommen {_currentProfile.ProfileName}, in deiner NotizApp!";
         await Task.Delay(2000);
         BackToMenu();
@@ -200,7 +198,7 @@ public partial class MainWindow : Window
 
         if (string.IsNullOrWhiteSpace(title))
         {
-            Console.WriteLine("Titel darf nicht leer sein!");
+            //titel darf nicht leer sein
             return;
         }
 

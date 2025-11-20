@@ -10,41 +10,46 @@
     
     
     <Grid>
-        <!-- Profil aussuchen -->
-        <Button Name="ChooseProfile" Content="Profil aussuchen" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Background="Gray" Click="ChooseProfile_OnClick"/>
-        <Button Name="CreateNewProfile" Content="Neues Profil erstellen" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Background="Gray" FontSize="40" Click="CreateNewProfile_OnClick" IsVisible="False"/>
-        
-        <!-- falls es schon profile gibt, dann wird hier die liste angezeigt-->
-        <StackPanel Name="ProfileListPanel"
-                    Orientation="Vertical"
-                    Background="Yellow"
-                    Opacity="0.7"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top"
-                    Margin="0,200,0,0"
-                    Spacing="10">
-        </StackPanel>
-        
-        <StackPanel Name="ProfileCreationPanel"
-                    Orientation="Vertical"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Spacing="15"
-                    IsVisible="False">
-            <TextBox Name="NewProfileNameBox" Watermark="...und du bist ?!" VerticalAlignment="Center" HorizontalAlignment="Center"  Width="300" />
-            <Button Name="SaveNewProfile" Content="Neues Profil speichern" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0" Background="Gray" FontSize="20" Click="SaveNewProfile_OnClick"/>
-        </StackPanel>
-        
         <!-- der universale Label und hintergrund -->
-        <Label Name="LabelName" Content="Willkommen in der NotizApp" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0" FontSize="60" FontStyle="Normal" FontWeight="Bold" IsVisible="False" Foreground="Orange"/>
+        <Grid Name="LabelGrid" IsVisible="False">
+            <Label Name="LabelName" Content="Willkommen in der NotizApp" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0" FontSize="60" FontStyle="Normal" FontWeight="Bold"  Foreground="Orange"/>
+        </Grid>
+        
         <Grid.Background>DarkRed</Grid.Background>
+        <!-- bei start der knopf, sonst nicht gebraucht -->
+        <Button Name="ChooseProfile" Content="Profil aussuchen" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Background="Gray" Click="ChooseProfile_OnClick"/>
         
-        <!-- auswahlsmenü -->
-        <Button Name="CreateNote" Content="Neues Notiz erstellen" IsVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,100" Click="CreateNote_OnClick"/>
-        <Button Name="OpenNotes" Content="Alle notizen sehen" IsVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
-        <Button Name="SwitchUser" Content="Benutzer wechseln" IsVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" Click="SwitchUser_OnClick"/>
-        <Button Name="CloseNotes" Content="Notizbuch schließen" Click="CloseNotes_OnClick" IsVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,200,0,0"/>
+        <Grid Name="ChooseProfileGrid" IsVisible="False"> <!-- Profil aussuchen -->
+            <Button Name="CreateNewProfile" Content="Neues Profil erstellen" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Background="Gray" FontSize="30" Click="CreateNewProfile_OnClick"/>
+            <!-- falls es schon profile gibt, dann wird hier die liste angezeigt-->
+            <StackPanel Name="ProfileListPanel"
+                        Orientation="Vertical"
+                        Background="OrangeRed"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Margin="0,200,0,0"
+                        Spacing="10">
+            </StackPanel>
+        </Grid>
+        <Grid Name="ProfileCreationGrid" IsVisible="False">
+            <StackPanel Name="ProfileCreationPanel"
+                        Orientation="Vertical"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="15"
+                        >
+                <TextBox Name="NewProfileNameBox" Watermark="...und du bist ?!" VerticalAlignment="Center" HorizontalAlignment="Center"  Width="300" />
+                <Button Name="SaveNewProfile" Content="Neues Profil speichern" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0" Background="Gray" FontSize="20" Click="SaveNewProfile_OnClick"/>
+            </StackPanel>
+        </Grid>
+     
         
+        <Grid Name="MenuGrid" IsVisible="False"> <!-- auswahlsmenü -->
+            <Button Name="CreateNote" Content="Neues Notiz erstellen" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,100" Click="CreateNote_OnClick"/>
+            <Button Name="OpenNotes" Content="Alle notizen sehen"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+            <Button Name="SwitchUser" Content="Benutzer wechseln"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" Click="SwitchUser_OnClick"/>
+            <Button Name="CloseNotes" Content="Notizbuch schließen" Click="CloseNotes_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,200,0,0"/>
+        </Grid>
         <Grid Name="CreateNoteGrid" IsVisible="False">
             <TextBox Name="TitelBox" Watermark="hier kommt der Titel deiner Notiz..." HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,10,0,0" Width="300"/>
             <TextBox Name="InhaltsBox" Watermark="So fängt deine Erinnerung an.."  HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,50,0,0" Width="600" Height="700" AcceptsReturn="True" TextWrapping="Wrap" />
