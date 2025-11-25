@@ -38,7 +38,8 @@ public partial class MainWindow : Window
             ChooseProfileGrid,
             ProfileCreationGrid,
             MenuGrid,
-            CreateNoteGrid
+            CreateNoteGrid,
+            ShowNotesGrid
         };
         
         this.Loaded += OnLoaded;
@@ -55,8 +56,45 @@ public partial class MainWindow : Window
     private void OpenNotes_OnClick(object? sender, RoutedEventArgs e)
     {
         ClearScreen();
-        //Hier kommt der Screen mit der Liste von bereits bestehenden Notizen
-        //TIPP: Notizen speichern (aber wie??)
+        ShowNotesGrid.IsVisible = true;
+        
+        NotesListPanel.Children.Clear();
+        
+        if (_currentProfile.Notes.Count == 0)
+        {
+            var noNotesText = new TextBlock
+            {
+                Text = "Du hast noch keine Notizen.",
+                FontSize = 22,
+                Foreground = Brushes.White,
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
+                Margin = new Thickness(0, 50, 0, 0)
+            };
+
+            NotesListPanel.Children.Add(noNotesText);
+            return;
+        }
+
+        foreach (var note in _currentProfile.Notes)
+        {
+            var noteButton = new Button
+            {
+                Content = $"{note.Titel}     ({note.Created:dd.MM.yyyy HH:mm})",
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
+                Width = 350,
+                Height = 40,
+                FontSize = 18,
+                Margin = new Thickness(0, 5, 0, 5)
+            };
+
+            noteButton.Click += (s, e2) =>
+            {
+                //OpenSingleNote(note); 
+            };
+
+            NotesListPanel.Children.Add(noteButton);
+        }
+        
     }
 
     private void CloseNotes_OnClick(object? sender, RoutedEventArgs e)
@@ -149,6 +187,7 @@ public partial class MainWindow : Window
             b.Click += async (s, e) =>
             {
                 _currentProfile = await _profileService.LoadProfileAsync(profile);
+                _currentProfile.Notes ??= new List<Note>();
                 AccessMenu();
             };
 
@@ -166,6 +205,7 @@ public partial class MainWindow : Window
     {
         
         _currentProfile = new Profile(NewProfileNameBox.Text, new List<Note>());
+        _currentProfile.Notes ??= new List<Note>();
         _profileService.SaveProfileAsync(_currentProfile);
         AccessMenu();
     }

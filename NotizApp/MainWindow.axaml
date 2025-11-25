@@ -46,7 +46,7 @@
         
         <Grid Name="MenuGrid" IsVisible="False"> <!-- auswahlsmenü -->
             <Button Name="CreateNote" Content="Neues Notiz erstellen" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,100" Click="CreateNote_OnClick"/>
-            <Button Name="OpenNotes" Content="Alle notizen sehen"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+            <Button Name="OpenNotes" Content="Alle notizen sehen"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Click="OpenNotes_OnClick"/>
             <Button Name="SwitchUser" Content="Benutzer wechseln"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" Click="SwitchUser_OnClick"/>
             <Button Name="CloseNotes" Content="Notizbuch schließen" Click="CloseNotes_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,200,0,0"/>
         </Grid>
@@ -55,6 +55,22 @@
             <TextBox Name="InhaltsBox" Watermark="So fängt deine Erinnerung an.."  HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,50,0,0" Width="600" Height="700" AcceptsReturn="True" TextWrapping="Wrap" />
             <Button Name="SaveNoteButton" Content="Speicher diese Notiz!" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Margin="0,0,30,30" Click="SaveNoteButton_OnClick"/>
             <Button Name="BackButton" Content="Zurück" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="20" Margin="30,0,0,30" Click="BackButton_OnClick"/>
+        </Grid>
+        
+        <Grid Name="ShowNotesGrid" IsVisible="False">
+            <StackPanel Name="NotesListPanel"
+                        Orientation="Vertical"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Margin="0,50,0,0"
+                        Spacing="10"/>
+    
+            <Button Name="BackFromNotesButton"
+                    Content="Zurück"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Margin="20,0,0,20"
+                    Click="BackButton_OnClick"/>
         </Grid>
     </Grid>
 </Window>
